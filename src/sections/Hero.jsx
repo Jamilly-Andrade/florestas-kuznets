@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import FoldText from '../components/reactbits/FoldText.jsx';
+import VariableTitle from '../components/text/VariableTitle.jsx';
 import AnimatedContent from '../components/reactbits/AnimatedContent.jsx';
 import { paises } from '../lib/data.js';
 import { prefersReducedMotion } from '../lib/hooks.js';
@@ -40,25 +40,10 @@ export default function Hero() {
 
       <div className="hero__inner">
         <AnimatedContent trigger="mount" delay={0.4} distance={20} className="hero__kicker">
-          <span className="dot" /> Métodos Estatísticos Aplicados às Ciências Sociais · A2
+          <span className="dot" /> Curva de Kuznets Ambiental · Transição Florestal
         </AnimatedContent>
 
-        <h1 className="hero__title">
-          <FoldText
-            text={'Países mais ricos\nperdem menos\nfloresta?'}
-            splitBy="word"
-            hinge="bottom"
-            trigger="mount"
-            fontSize="1em"
-            fontWeight={420}
-            stagger={0.11}
-            duration={1.1}
-            foldAngle={100}
-            hoverRefold
-            refoldRadius={220}
-            refoldAngle={40}
-          />
-        </h1>
+        <VariableTitle text={'Países mais ricos\nperdem menos\nfloresta?'} className="hero__title" delay={0.3} />
 
         <AnimatedContent trigger="mount" delay={1.2} distance={30} blur={8} className="hero__sub">
           E existe um ponto da renda a partir do qual a destruição <em>para</em> e se reverte em{' '}

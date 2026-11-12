@@ -1,6 +1,6 @@
 import { SectionHead, ParallaxImage } from '../components/ui.jsx';
 import AnimatedContent from '../components/reactbits/AnimatedContent.jsx';
-import FoldText from '../components/reactbits/FoldText.jsx';
+import VariableTitle from '../components/text/VariableTitle.jsx';
 
 const CONCLUSOES = [
   {
@@ -53,19 +53,12 @@ export default function Conclusoes() {
         <ParallaxImage src="/img/copa.webp" alt="Copa densa de árvores vista de baixo" strength={26} />
         <div className="container conclusoes__banner-inner">
           <p className="kicker">10 · Conclusões do estudo</p>
-          <h2 className="conclusoes__title">
-            <FoldText
-              text={'O que três décadas\nde dados nos dizem'}
-              splitBy="word"
-              hinge="top"
-              foldStyle="blinds"
-              trigger="scroll"
-              fontSize="1em"
-              fontWeight={430}
-              stagger={0.08}
-              duration={1}
-            />
-          </h2>
+          <VariableTitle
+            as="h2"
+            text={'O que três décadas\nde dados nos dizem'}
+            className="conclusoes__title"
+            trigger="scroll"
+          />
         </div>
       </div>
 

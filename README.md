@@ -1,9 +1,11 @@
 # Renda & Floresta
 
-Site interativo, em formato de storytelling, do trabalho A2 de **Métodos Estatísticos Aplicados às Ciências Sociais**:
+Site interativo, em formato de storytelling, sobre a pergunta:
 _Países mais ricos perdem menos floresta? Existe um ponto da renda a partir do qual a destruição para e se reverte em reflorestamento?_
 
-Todos os números e gráficos vêm do notebook `A2_MÉTODOS_ESTATÍSTICOS.ipynb` (151 países, 1990–2020).
+Autora: **Jamilly Andrade de Medeiros** · Orientadora: **Polyana Sampaio Ramos Barbosa**
+
+Todos os números e gráficos vêm da análise estatística de 151 países (1990–2020).
 
 ## Rodar localmente
 
@@ -24,5 +26,6 @@ npm run build    # gera a pasta dist/
 - `src/data/*.json`: dados extraídos das saídas do notebook (países, curva ajustada, séries temporais).
 - `src/lib/data.js`: estatísticas reportadas no notebook (qui-quadrado, regressões, correlações etc.).
 - `src/sections/`: cada capítulo da narrativa.
-- `src/components/reactbits/`: componentes do React Bits (AnimatedContent, FoldText, MaskedHeading).
+- `src/components/reactbits/`: componentes do React Bits (AnimatedContent, MaskedHeading).
+- `src/components/text/`: efeitos de texto inspirados no React Bits (VariableTitle, ScrollFloat).
 - `public/img/`: fotos do Wikimedia Commons (créditos no rodapé do site).

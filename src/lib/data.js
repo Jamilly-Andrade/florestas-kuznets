@@ -22,7 +22,7 @@ export const TRAJ_INFO = {
   '4. Ganho florestal': { label: 'Ganho florestal', regra: '> +0,1% a.a.', cor: '#5fd38d' }
 };
 
-/* Resultados numéricos reportados no notebook (A2_MÉTODOS_ESTATÍSTICOS.ipynb) */
+/* Resultados numéricos reportados no notebook  */
 export const STATS = {
   totalInicial: 217,
   total: 151,

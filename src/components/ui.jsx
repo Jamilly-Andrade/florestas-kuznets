@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import FoldText from './reactbits/FoldText.jsx';
+import ScrollFloat from './text/ScrollFloat.jsx';
 import AnimatedContent from './reactbits/AnimatedContent.jsx';
 import { prefersReducedMotion } from '../lib/hooks.js';
 
@@ -56,7 +56,7 @@ export function CountUp({ to, decimals = 0, duration = 1.8, prefix = '', suffix 
 }
 
 /* ---------- Cabeçalho de seção: rótulo + título dobrável + lead ---------- */
-export function SectionHead({ kicker, title, lead, align = 'left', hinge = 'bottom' }) {
+export function SectionHead({ kicker, title, lead, align = 'left' }) {
   return (
     <header className={`section-head section-head--${align}`}>
       {kicker && (
@@ -65,19 +65,7 @@ export function SectionHead({ kicker, title, lead, align = 'left', hinge = 'bott
         </AnimatedContent>
       )}
       <h2 className="section-title">
-        <FoldText
-          text={title}
-          splitBy="word"
-          hinge={hinge}
-          trigger="scroll"
-          fontSize="1em"
-          fontWeight={500}
-          stagger={0.07}
-          duration={0.9}
-          hoverRefold
-          refoldRadius={160}
-          refoldAngle={35}
-        />
+        <ScrollFloat text={title} />
       </h2>
       {lead && (
         <AnimatedContent distance={40} duration={0.9} delay={0.15} className="lead">
@@ -113,7 +101,8 @@ const LINKS = [
   ['virada', 'Ponto de virada'],
   ['casos', 'Casos'],
   ['comercio', 'Comércio'],
-  ['conclusoes', 'Conclusões']
+  ['conclusoes', 'Conclusões'],
+  ['notas', 'Metodologia']
 ];
 
 export function Nav({ lenis }) {

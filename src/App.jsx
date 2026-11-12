@@ -15,6 +15,7 @@ import Virada from './sections/Virada.jsx';
 import Casos from './sections/Casos.jsx';
 import Comercio from './sections/Comercio.jsx';
 import Conclusoes from './sections/Conclusoes.jsx';
+import Notas from './sections/Notas.jsx';
 import Footer from './sections/Footer.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,12 +27,16 @@ export default function App() {
     if (prefersReducedMotion()) return undefined;
     const instance = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
     lenis.current = instance;
+    window.__lenis = instance;
     instance.on('scroll', ScrollTrigger.update);
     const tick = time => instance.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     // recalcula posições quando fontes/imagens terminarem de carregar
-    const refresh = () => ScrollTrigger.refresh();
+    const refresh = () => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    };
     window.addEventListener('load', refresh);
     document.fonts?.ready.then(refresh);
     return () => {
@@ -39,6 +44,7 @@ export default function App() {
       window.removeEventListener('load', refresh);
       instance.destroy();
       lenis.current = null;
+      window.__lenis = null;
     };
   }, []);
 
@@ -59,6 +65,7 @@ export default function App() {
         <Casos />
         <Comercio />
         <Conclusoes />
+        <Notas />
       </main>
       <Footer />
     </>
