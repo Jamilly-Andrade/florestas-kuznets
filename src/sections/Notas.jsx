@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TRAJ, TRAJ_INFO } from '../lib/data.js';
+import Tex from '../components/Tex.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,8 +11,10 @@ const METODOLOGIA = [
     t: 'Taxa anual composta',
     d: (
       <>
-        <code>((floresta 2020 ÷ floresta 1990)^(1/30) − 1) × 100</code>
-        <span>Variação média por ano entre 1990 e 2020, em % da própria floresta do país.</span>
+        <Tex block>{String.raw`r = \left[\left(\frac{F_{2020}}{F_{1990}}\right)^{1/30} - 1\right] \times 100`}</Tex>
+        <span>
+          Variação média por ano entre 1990 e 2020, em % da própria floresta do país, onde <Tex>{'F'}</Tex> é a área florestal.
+        </span>
       </>
     )
   },
@@ -48,15 +51,22 @@ const METODOLOGIA = [
   },
   {
     t: 'Outliers',
-    d: <span>Critério de 1,5 × AIQ: abaixo de Q1 − 1,5·AIQ ou acima de Q3 + 1,5·AIQ, no geral e dentro de cada faixa de renda.</span>
+    d: (
+      <>
+        <Tex block>{String.raw`\begin{aligned} & x < Q_1 - 1{,}5\,\mathrm{AIQ} \\ \text{ou}\ \ & x > Q_3 + 1{,}5\,\mathrm{AIQ} \end{aligned}`}</Tex>
+        <span>Critério aplicado no geral e dentro de cada faixa de renda, com AIQ = Q3 − Q1.</span>
+      </>
+    )
   },
   {
     t: 'Testes e modelos',
     d: (
-      <span>
-        Qui-quadrado de independência e V de Cramér · correlações de Pearson e Spearman · regressões por MQO: taxa ~ ln(PIB)
-        e taxa ~ ln(PIB) + ln(PIB)².
-      </span>
+      <>
+        <span>Qui-quadrado de independência e V de Cramér · correlações de Pearson e Spearman · regressões por MQO:</span>
+        <Tex block>{String.raw`V = \sqrt{\frac{\chi^2}{n\,(k-1)}}`}</Tex>
+        <Tex block>{String.raw`r_i = \beta_0 + \beta_1 \ln(\mathrm{PIB}_i) + \varepsilon_i`}</Tex>
+        <Tex block>{String.raw`r_i = \beta_0 + \beta_1 \ln(\mathrm{PIB}_i) + \beta_2 \ln(\mathrm{PIB}_i)^2 + \varepsilon_i`}</Tex>
+      </>
     )
   }
 ];
@@ -276,7 +286,7 @@ export default function Notas() {
                     </a>
                   ))}
                 </div>
-                <p className="caption">Todas as fotos vêm do Wikimedia Commons. Clique em uma foto para ver a página original.</p>
+                <p className="caption">Todas as fotos vêm do Wikimedia Commons.</p>
               </div>
             </article>
           </div>

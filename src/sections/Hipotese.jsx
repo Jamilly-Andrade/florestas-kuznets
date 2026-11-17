@@ -20,14 +20,14 @@ const ESTAGIOS = [
     nome: 'Industrialização e expansão agrícola',
     sub: 'renda intermediária',
     texto:
-      'A perda florestal atinge seu pico: com o crescimento da renda, as sociedades constroem lavouras e indústrias e desmatam de forma intensiva.'
+      'Com o aumento da renda, lavouras e indústrias avançam sobre a mata e a perda florestal chega ao seu pico.'
   },
   {
     letra: 'C',
     nome: 'Ponto de inflexão',
     sub: 'a virada',
     texto:
-      'Renda, educação, exigência regulatória e transição para a economia de serviços e tecnologia justificam a redução do desmatamento.'
+      'Mais renda e educação, regras ambientais mais exigentes e a passagem para uma economia de serviços ajudam a frear o desmatamento.'
   },
   {
     letra: 'D',
@@ -61,6 +61,8 @@ export default function Hipotese() {
   const trailRef = useRef(null);
   const [stage, setStage] = useState(0);
   const stageRef = useRef(0);
+  const tlRef = useRef(null);
+  const [done, setDone] = useState(false);
 
   const d = useMemo(() => line().x(p => sx(p[0])).y(p => sy(p[1])).curve(curveCatmullRom.alpha(0.5))(PONTOS), []);
 
@@ -83,19 +85,49 @@ export default function Hipotese() {
 
     if (prefersReducedMotion()) {
       place(1);
+      setDone(true);
       return undefined;
     }
+
+    // autoplay: o ponto percorre a curva sozinho, com uma pausa em cada estágio (~7s no total)
+    const state = { p: 0 };
+    const tl = gsap.timeline({
+      paused: true,
+      onStart: () => setDone(false),
+      onComplete: () => setDone(true)
+    });
+    const update = () => place(state.p);
+    // [progresso alvo, duração do trecho, pausa depois]
+    const PARADAS = [
+      [0.17, 0.9, 0.9],
+      [0.42, 1.1, 1.0],
+      [0.67, 1.0, 1.0],
+      [1, 1.2, 0]
+    ];
+    PARADAS.forEach(([to, dur, hold]) => {
+      tl.to(state, { p: to, duration: dur, ease: 'power1.inOut', onUpdate: update });
+      if (hold) tl.to({}, { duration: hold });
+    });
+    tlRef.current = tl;
+
     place(0);
     const st = ScrollTrigger.create({
       trigger: pinRef.current,
-      start: 'top top',
-      end: '+=260%',
-      pin: true,
-      scrub: 0.6,
-      onUpdate: self => place(self.progress)
+      start: 'top 65%',
+      once: true,
+      onEnter: () => tl.play(0)
     });
-    return () => st.kill();
+    ScrollTrigger.refresh();
+    return () => {
+      st.kill();
+      tl.kill();
+      tlRef.current = null;
+    };
   }, []);
+
+  const replay = () => {
+    if (tlRef.current) tlRef.current.play(0);
+  };
 
   return (
     <section className="section hipotese" id="hipotese">
@@ -105,9 +137,9 @@ export default function Hipotese() {
           title="A Curva de Kuznets Ambiental"
           lead={
             <>
-              Popularizada no fim dos anos 1990 a partir dos estudos de Gene Grossman e Alan Krueger, ela adapta a teoria de
-              Simon Kuznets (originalmente sobre desigualdade de renda) para o meio ambiente: o desmatamento acompanharia uma
-              curva em <em>U</em>, em quatro períodos separados pela renda do país.
+              Popularizada nos anos 1990 a partir dos estudos de Gene Grossman e Alan Krueger, ela adapta a teoria de
+              Simon Kuznets (originalmente sobre desigualdade de renda) para o meio ambiente. Aplicada às florestas, ela prevê que a variação da
+              floresta desenhe uma curva em <em>U</em> conforme a renda cresce, em quatro estágios.
             </>
           }
         />
@@ -172,6 +204,20 @@ export default function Hipotese() {
                 <circle r="7" className="kz-dot" />
               </g>
             </svg>
+            {done && !prefersReducedMotion() && (
+              <button type="button" className="kz-replay" onClick={replay} aria-label="Repetir a animação da curva">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path
+                    d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
             <p className="caption">Esquema ilustrativo, sem dados reais. Os dados chegam a seguir.</p>
           </div>
 

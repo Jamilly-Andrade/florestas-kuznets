@@ -8,14 +8,14 @@ const CONCLUSOES = [
     titulo: 'Sim, países mais ricos perdem menos floresta',
     destaque: 'r = 0,42 · ρ = 0,54',
     texto:
-      'A correlação entre PIB per capita e taxa anual de variação florestal é positiva e significativa. Baixa renda: −0,74% ao ano em média. Alta renda: +0,41% ao ano, sem nenhuma nação rica em desmatamento acelerado e mais da metade em regeneração consolidada.'
+      'A correlação entre PIB per capita e taxa anual de variação florestal é positiva e significativa. Baixa renda: −0,74% ao ano em média. Alta renda: +0,41% ao ano, sem nenhuma nação rica em perda acelerada e mais da metade com ganho florestal.'
   },
   {
     n: '02',
     titulo: 'Existe um ponto estatístico de reversão',
     destaque: '≈ US$ 15.260 – 15.500',
     texto:
-      'Por volta desse patamar de PIB per capita (PPC), a curva cruza a linha de perda zero e entra no campo do reflorestamento, o que corresponde à entrada no estrato de Renda média-alta, onde perdas e ganhos se equilibram.'
+      'Por volta desse patamar de PIB per capita (PPC), a taxa estimada cruza a linha de perda zero e entra no campo do reflorestamento, um valor próximo do PIB per capita típico dos países de Renda média-alta (mediana de cerca de US$ 16.900 em PPC), justamente a faixa em que perdas e ganhos se equilibram (mediana de 0,00% ao ano).'
   },
   {
     n: '03',
@@ -36,7 +36,7 @@ const CONCLUSOES = [
     titulo: 'O sucesso dos ricos é parcialmente terceirizado',
     destaque: '93% importam desmatamento',
     texto:
-      'Grande parte da recuperação florestal do mundo desenvolvido é subsidiada pela terceirização ambiental: as nações ricas preservam suas paisagens enquanto demandam produtos que continuam devastando florestas tropicais.'
+      'Quase todos os países ricos são importadores líquidos de desmatamento. Parte do ganho florestal dentro das suas fronteiras depende de perdas que acontecem em outros países.'
   }
 ];
 

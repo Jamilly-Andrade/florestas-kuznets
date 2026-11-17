@@ -60,7 +60,7 @@ export default function Hero() {
             <span>anos de dados</span>
           </div>
           <div>
-            <strong>1990—2020</strong>
+            <strong>1990 a 2020</strong>
             <span>Banco Mundial · FAO / OWID</span>
           </div>
         </AnimatedContent>

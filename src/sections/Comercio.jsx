@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SectionHead, CountUp, ParallaxImage, Tooltip, useTooltip } from '../components/ui.jsx';
+import { SectionHead, CountUp, ParallaxImage, Tooltip, useTooltip, ChipList } from '../components/ui.jsx';
 import AnimatedContent from '../components/reactbits/AnimatedContent.jsx';
 import { paises, RENDAS, STATS } from '../lib/data.js';
 import { pct } from '../lib/format.js';
@@ -18,7 +18,7 @@ export default function Comercio() {
       <ParallaxImage src="/img/neblina.webp" alt="Floresta com troncos finos sob neblina" className="comercio__bg" />
       <div className="container comercio__inner">
         <SectionHead
-          kicker="09 · Seção extra"
+          kicker="09 · Seção extra: o comércio"
           title="A floresta que os ricos importam"
           lead="Uma das principais críticas à Transição Florestal: e se o reflorestamento dos países ricos fosse acompanhado da importação de desmatamento embutido em carne, soja, madeira e outros produtos vindos de países mais pobres?"
         />
@@ -56,7 +56,6 @@ export default function Comercio() {
               >
                 <div className="stack__label">
                   <strong>{r}</strong>
-                  <span>clique para ver os países</span>
                 </div>
                 <div className="stack__bar">
                   {[
@@ -95,25 +94,29 @@ export default function Comercio() {
             <h4 className="fire">
               Exportadores · {faixa} ({exp.length})
             </h4>
-            <div className="chips">
-              {exp.map(p => (
+            <ChipList
+              key={faixa}
+              items={exp}
+              render={p => (
                 <span key={p.iso} className="chip chip--fire">
                   {p.nome}
                 </span>
-              ))}
-            </div>
+              )}
+            />
           </div>
           <div>
             <h4 className="sky">
               Importadores · {faixa} ({imp.length})
             </h4>
-            <div className="chips">
-              {imp.map(p => (
+            <ChipList
+              key={faixa}
+              items={imp}
+              render={p => (
                 <span key={p.iso} className="chip chip--sky">
                   {p.nome}
                 </span>
-              ))}
-            </div>
+              )}
+            />
           </div>
         </div>
 

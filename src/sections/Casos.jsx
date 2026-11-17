@@ -174,7 +174,9 @@ export default function Casos() {
       <div className="container">
         <Linhas />
         <p className="caption">
-          Vietnã e Rep. Dem. do Congo aparecem na tabela de casos do estudo, mas não na série temporal do gráfico.
+          O gráfico mostra seis dos oito países. Vietnã e República Democrática do Congo ficaram de fora porque seus nomes
+          não coincidem entre a base de séries anuais e a do Banco Mundial. Os dados de 1990 e 2020 deles estão nos cartões
+          abaixo.
         </p>
 
         <div className="casos__cols">
@@ -202,11 +204,11 @@ export default function Casos() {
 
         <AnimatedContent className="callout callout--fire" distance={40}>
           <p>
-            O mais revelador: <strong>Brasil</strong> (US$ 17.328) e <strong>Paraguai</strong> (US$ 14.990) são países de Renda
+            O caso mais revelador: <strong>Brasil</strong> (US$ 17.328) e <strong>Paraguai</strong> (US$ 14.990) são países de Renda
             média-alta, com renda acima ou praticamente no ponto de reversão, e mesmo assim continuaram em{' '}
             <strong className="fire">perda acelerada</strong> para atender à demanda global por commodities agrícolas e
-            pecuárias. A forma como o país se insere no comércio internacional e a presença de políticas públicas ativas de
-            proteção ambiental são decisivas.
+            pecuárias. Além da renda, pesam a forma como cada país se insere no comércio internacional e a existência de
+            políticas ativas de proteção ambiental.
           </p>
         </AnimatedContent>
       </div>

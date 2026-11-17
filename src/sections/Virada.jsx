@@ -112,13 +112,13 @@ function Dispersao() {
               {t >= 1000 ? `${t / 1000} mil` : t}
             </text>
           ))}
-          <text x={(width + M.l) / 2} y={H - 8} className="axis-title" textAnchor="middle">
+          <text x={width < 600 ? width / 2 : (width + M.l) / 2} y={H - 8} className="axis-title" textAnchor="middle">
             PIB per capita 2020 (US$ PPC, escala log)
           </text>
 
           {/* ponto de reversão */}
           <line x1={x(zero)} x2={x(zero)} y1={M.t} y2={H - M.b} className="turn-line" />
-          <g transform={`translate(${x(zero) + (x(zero) + 174 > width - M.r ? -174 : 0)} ${M.t + 4})`}>
+          <g transform={`translate(${x(zero) + 174 > width - M.r ? Math.max(M.l - 4, x(zero) - 174) : x(zero)} ${M.t + 4})`}>
             <rect x={6} y={0} width={162} height={44} rx={8} className="turn-badge" />
             <text x={16} y={18} className="turn-badge__k">
               ponto de reversão
@@ -194,7 +194,7 @@ function Dispersao() {
 
       <div className="sim-panel">
         <label className="sim-panel__slider">
-          <span>Mova a renda per capita</span>
+          <span>Simulador de renda per capita</span>
           <input
             type="range"
             min={Math.log(1000)}
@@ -292,8 +292,8 @@ export default function Virada() {
               </div>
             </dl>
             <p>
-              Cerca de <strong>um quarto (24,3%)</strong> de toda a variação florestal entre 151 países em 30 anos é explicado
-              apenas pelo nível de renda.
+              Sozinha, a renda explica cerca de <strong>um quarto (24,3%)</strong> das diferenças na taxa florestal entre os 151
+              países.
             </p>
             <span className="modelo__badge">preferível</span>
           </AnimatedContent>
@@ -319,8 +319,8 @@ export default function Virada() {
               </div>
             </dl>
             <p>
-              A curvatura não acrescenta nada: o R² sobe só 0,1 ponto e o termo quadrático fica muito longe da significância.
-              Ligue a <em>curva quadrática</em> no gráfico: ela praticamente se sobrepõe à reta.
+              A curvatura não acrescenta nada: o R² sobe só 0,1 ponto percentual e o termo quadrático fica muito longe da
+              significância. No gráfico, a <em>curva quadrática</em> praticamente se sobrepõe à reta.
             </p>
           </AnimatedContent>
         </div>
@@ -329,9 +329,13 @@ export default function Virada() {
           <p className="verdict__k">a resposta</p>
           <p className="verdict__v">
             Sim. Por volta de <span className="leaf">US$ {num(15500)}</span> per capita, a taxa estimada cruza a linha de perda
-            zero, e esse patamar coincide com a entrada na faixa de Renda média-alta.
+            zero.
           </p>
         </AnimatedContent>
+        <p className="caption">
+          Esse patamar fica próximo do PIB per capita típico dos países de Renda média-alta (mediana de cerca de US${' '}
+          {num(16900)} em PPC), justamente a faixa em que perdas e ganhos se equilibram (mediana de 0,00% ao ano).
+        </p>
       </div>
     </section>
   );

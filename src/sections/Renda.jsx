@@ -73,7 +73,7 @@ function Boxplots() {
   const [hover, setHover] = useState(null);
   const { tip, show, hide } = useTooltip();
   const rowH = width < 600 ? 104 : 120;
-  const M = { t: 20, r: 16, b: 44, l: width < 600 ? 12 : 150 };
+  const M = { t: 20, r: 16, b: 44, l: width < 600 ? 12 : 176 };
   const H = M.t + M.b + rowH * RENDAS.length;
   const x = scaleLinear().domain([-2.7, 4.1]).range([M.l, width - M.r]);
 
@@ -131,7 +131,7 @@ function Boxplots() {
               </text>
             </g>
           ))}
-          <text x={(width + M.l) / 2} y={H - 6} className="axis-title" textAnchor="middle">
+          <text x={width < 600 ? width / 2 : (width + M.l) / 2} y={H - 6} className="axis-title" textAnchor="middle">
             variação anual da floresta (% ao ano)
           </text>
           {grupos.map((g, i) => {
@@ -217,30 +217,24 @@ export default function Renda() {
         />
         <Empilhado />
 
-        <div className="zero">
-          <AnimatedContent className="zero__num" distance={0} scale={0.6} blur={20} duration={1.4}>
-            0
-          </AnimatedContent>
+        <AnimatedContent className="zero" distance={40}>
+          <div className="zero__num">0</div>
           <div className="zero__text">
-            <AnimatedContent distance={40}>
-              <h3>
-                países de alta renda com <span className="fire">perda acelerada</span>
-              </h3>
-            </AnimatedContent>
-            <AnimatedContent distance={40} delay={0.15}>
-              <p>
+            <h3>
+              países de alta renda com <span className="fire">perda acelerada</span>
+            </h3>
+            <p>
                 Dos 44 países ricos, <strong>nenhum</strong> está em perda acelerada. Só 3 (6,8%) têm perda moderada, e{' '}
                 <strong className="leaf">mais de 90%</strong> mantiveram suas matas estáveis (17) ou em expansão (24). Na Baixa
                 renda é o contrário: <strong className="fire">13 de 22</strong> (59,1%) sofreram desmatamento grave.
-              </p>
-            </AnimatedContent>
+            </p>
           </div>
-        </div>
+        </AnimatedContent>
 
         <div className="teste">
           <AnimatedContent className="teste__intro" distance={40}>
             <span className="tag">teste do qui-quadrado de independência</span>
-            <p>Esse padrão poderia ser obra do acaso? O teste diz que não.</p>
+            <p>Esse padrão poderia ser fruto do acaso? O teste indica que não.</p>
           </AnimatedContent>
           <div className="stat-row stat-row--4">
             <AnimatedContent className="stat stat--big" distance={30}>
@@ -266,8 +260,8 @@ export default function Renda() {
           </div>
           <AnimatedContent className="prose" distance={30}>
             <p>
-              O p-valor praticamente nulo descarta que o resultado tenha acontecido por acaso, e o V de Cramér de 0,328 indica
-              uma associação <strong>de moderada a forte</strong> entre riqueza econômica e conservação florestal.
+              Com um p-valor tão baixo, rejeitamos a hipótese de que faixa de renda e trajetória florestal sejam independentes.
+              O V de Cramér de 0,328 indica uma associação <strong>de moderada a forte</strong> entre as duas.
             </p>
           </AnimatedContent>
         </div>

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { scaleLinear } from 'd3-scale';
 import { bin } from 'd3-array';
-import { SectionHead, CountUp } from '../components/ui.jsx';
+import { SectionHead, CountUp, ChipList } from '../components/ui.jsx';
 import AnimatedContent from '../components/reactbits/AnimatedContent.jsx';
 import { paises, STATS, RENDA_COR } from '../lib/data.js';
 import { useInView, useWidth } from '../lib/hooks.js';
@@ -38,12 +38,12 @@ export default function Equilibrio() {
         <SectionHead
           kicker="03 · O retrato geral"
           title="Um mundo em equilíbrio aparente"
-          lead="A taxa média anual composta de variação da floresta resume 30 anos de cada país em um único número. Quando colocamos os 151 lado a lado, a maior parte se amontoa perto do zero."
+          lead="Antes de olhar para a renda, vale ver o quadro geral. Quando os 151 países são colocados lado a lado, a maior parte se concentra perto da variação zero."
         />
 
         <div className="duo-stats">
           <AnimatedContent className="duo" distance={40}>
-            <span className="duo__label">Média da variação acumulada 1990–2020</span>
+            <span className="duo__label">Média · variação total em 30 anos</span>
             <span className="duo__value leaf">
               <CountUp to={STATS.varTotal.media} decimals={2} prefix="+" suffix="%" />
             </span>
@@ -53,16 +53,23 @@ export default function Equilibrio() {
             vs
           </AnimatedContent>
           <AnimatedContent className="duo" distance={40} delay={0.25}>
-            <span className="duo__label">Mediana da variação acumulada</span>
+            <span className="duo__label">Mediana · variação total em 30 anos</span>
             <span className="duo__value fire">−0,13%</span>
             <span className="duo__note">o país típico perdeu floresta</span>
           </AnimatedContent>
         </div>
 
+        <AnimatedContent className="prose metricas-nota" distance={30}>
+          <p>
+            Esses dois números medem a <strong>variação acumulada</strong>, ou seja, quanto a floresta de cada país mudou
+            entre 1990 e 2020. O gráfico e a tabela abaixo usam a <strong>taxa anual composta</strong>, que é o ritmo médio
+            dessa mudança a cada ano. Por isso os valores não coincidem.
+          </p>
+        </AnimatedContent>
+
         <div className="chart-card" ref={viewRef}>
           <div className="chart-card__head">
             <h3>Distribuição da taxa anual de variação da floresta</h3>
-            <p>Passe o mouse (ou toque) nas barras para ver os países de cada faixa.</p>
           </div>
           <div className="hist" ref={wrapRef}>
             <svg width={width} height={H} role="img" aria-label="Histograma da taxa anual de variação florestal dos 151 países">
@@ -126,7 +133,7 @@ export default function Equilibrio() {
                   {t > 0 ? `+${t}` : t}%
                 </text>
               ))}
-              <text x={(width + M.l) / 2} y={H - 6} className="axis-title" textAnchor="middle">
+              <text x={width < 600 ? width / 2 : (width + M.l) / 2} y={H - 6} className="axis-title" textAnchor="middle">
                 variação anual da floresta (% ao ano, 1990–2020)
               </text>
             </svg>
@@ -141,18 +148,19 @@ export default function Equilibrio() {
                 {active.length} {active.length === 1 ? 'país' : 'países'}
               </span>
             </div>
-            <div className="chips">
-              {[...active]
-                .sort((a, b) => a.taxa - b.taxa)
-                .map(p => (
-                  <span key={p.iso} className="chip" style={{ '--c': RENDA_COR[p.renda] }} title={p.renda}>
-                    {p.nome} <em>{signed(p.taxa, 2)}%</em>
-                  </span>
-                ))}
-            </div>
+            <ChipList
+              key={active.x0}
+              items={[...active].sort((a, b) => a.taxa - b.taxa)}
+              render={p => (
+                <span key={p.iso} className="chip" style={{ '--c': RENDA_COR[p.renda] }} title={p.renda}>
+                  {p.nome} <em>{signed(p.taxa, 2)}%</em>
+                </span>
+              )}
+            />
           </div>
         </div>
 
+        <p className="stat-row__title">Taxa anual de variação (% ao ano)</p>
         <div className="stat-row">
           {[
             ['Média', '−0,06%'],
@@ -170,10 +178,10 @@ export default function Equilibrio() {
 
         <AnimatedContent className="prose" distance={40}>
           <p>
-            A mediana praticamente nula mostra que a taxa anual do mundo operou quase em equilíbrio ao longo de 30 anos. As
-            alterações mais intensas aparecem apenas nas pontas: <strong className="fire">10 países</strong> abaixo de −1,20% ao
-            ano e <strong className="leaf">6 países</strong> acima de +1,14% ao ano. Como a média é distorcida por poucas nações
-            no topo, a <strong>mediana</strong> é a medida central mais confiável para esses dados.
+            Com a mediana praticamente nula, o país típico ficou perto do equilíbrio ao longo de 30 anos. As mudanças
+            intensas aparecem só nas pontas: <strong className="fire">10 países</strong> abaixo de −1,20% ao ano e{' '}
+            <strong className="leaf">6 países</strong> acima de +1,14% ao ano. Como poucos casos extremos distorcem a média, a{' '}
+            <strong>mediana</strong> é a medida central mais confiável para esses dados. Mas esse equilíbrio é só aparente.
           </p>
         </AnimatedContent>
       </div>

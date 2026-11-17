@@ -177,3 +177,20 @@ export function ParallaxImage({ src, alt = '', strength = 18, className = '', ov
     </div>
   );
 }
+
+// Lista de países compacta: mostra só os primeiros e agrupa o resto num botão.
+export function ChipList({ items, limit = 8, render }) {
+  const [open, setOpen] = useState(false);
+  const shown = open ? items : items.slice(0, limit);
+  const rest = items.length - limit;
+  return (
+    <div className="chips">
+      {shown.map(render)}
+      {rest > 0 && (
+        <button type="button" className="chip chip--more" onClick={() => setOpen(o => !o)} aria-expanded={open}>
+          {open ? 'mostrar menos' : `+ ${rest} ${rest === 1 ? 'país' : 'países'}`}
+        </button>
+      )}
+    </div>
+  );
+}

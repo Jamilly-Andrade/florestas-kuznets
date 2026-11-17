@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import MaskedHeading from '../components/reactbits/MaskedHeading.jsx';
 import AnimatedContent from '../components/reactbits/AnimatedContent.jsx';
 import { ParallaxImage } from '../components/ui.jsx';
@@ -27,25 +27,12 @@ export default function Destruicao() {
   const [iso, setIso] = useState(OUTLIERS[0].iso);
   const pais = OUTLIERS.find(p => p.iso === iso);
   const perdidas = Math.round(-pais.varTotal);
-  const order = useMemo(() => {
-    // ordem pseudoaleatória estável para "queimar" árvores espalhadas
-    const idx = Array.from({ length: 100 }, (_, i) => i);
-    let s = 7;
-    for (let i = idx.length - 1; i > 0; i -= 1) {
-      s = (s * 9301 + 49297) % 233280;
-      const j = Math.floor((s / 233280) * (i + 1));
-      [idx[i], idx[j]] = [idx[j], idx[i]];
-    }
-    const rank = new Array(100);
-    idx.forEach((v, k) => (rank[v] = k));
-    return rank;
-  }, []);
 
   return (
     <section className="section destruicao" id="destruicao">
       <div className="destruicao__mask">
         <div className="container container--wide">
-          <p className="kicker kicker--fire">05 · As pontas da distribuição</p>
+          <p className="kicker kicker--fire">05 · A ponta negativa</p>
           <MaskedHeading
             text="DESMATAMENTO"
             tag="h2"
@@ -71,9 +58,9 @@ export default function Destruicao() {
             aria-label="Desmatamento"
           />
           <AnimatedContent className="destruicao__intro" distance={40}>
-            Dez países ficaram abaixo do limite inferior de <strong>−1,20% ao ano</strong>. São nações de baixa renda e renda
-            média-baixa, principalmente da África Subsaariana, além de Paraguai e Nicarágua, onde a expansão de pastagens e
-            lavouras impulsiona o desmatamento acelerado.
+            Os dez outliers de perda, abaixo de <strong>−1,20% ao ano</strong>, são quase todos de baixa renda ou renda
+            média-baixa e ficam na África Subsaariana. Fora da África aparecem Nicarágua e Paraguai. Em comum, a expansão de
+            pastagens e lavouras impulsiona o desmatamento acelerado.
           </AnimatedContent>
         </div>
       </div>
@@ -112,7 +99,7 @@ export default function Destruicao() {
             </div>
             <div className="forest" role="img" aria-label={`${perdidas} de cada 100 árvores perdidas entre 1990 e 2020`}>
               {Array.from({ length: 100 }, (_, i) => (
-                <Tree key={i} i={order[i]} burned={order[i] < perdidas} />
+                <Tree key={i} i={i} burned={i < perdidas} />
               ))}
             </div>
             <div className="forest-card__stats">
@@ -133,13 +120,13 @@ export default function Destruicao() {
             </div>
             {pais.iso === 'BFA' && (
               <p className="forest-card__note">
-                O caso mais drástico: em 30 anos, Burkina Faso perdeu <strong>mais da metade</strong> de toda a sua cobertura
+                O caso mais drástico: em 30 anos, Burquina Faso perdeu <strong>mais da metade</strong> de toda a sua cobertura
                 florestal.
               </p>
             )}
             {pais.iso === 'PRY' && (
               <p className="forest-card__note">
-                O único país de renda média-alta entre os outliers de perda, e o ponto fora da curva que reaparece mais adiante.
+                O único país de renda média-alta entre os outliers de perda. Ele volta a aparecer mais adiante.
               </p>
             )}
           </div>

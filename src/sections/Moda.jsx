@@ -41,7 +41,7 @@ export default function Moda() {
         <SectionHead
           kicker="04 · A primeira armadilha"
           title="A moda diz “ganho florestal”"
-          lead="Na tabela de frequências, a categoria mais comum entre os 151 países é o Ganho florestal: 52 nações, 34,4% da amostra. Parece uma boa notícia. Mas olhe como as categorias foram construídas."
+          lead="Quando os países são classificados em quatro trajetórias, a categoria mais comum é o Ganho florestal. Parece uma boa notícia, mas o resultado depende de como as categorias foram montadas."
         />
 
         <div className="moda__layout" ref={viewRef}>
@@ -113,8 +113,8 @@ export default function Moda() {
             <AnimatedContent distance={40} delay={0.3} className="moda__step">
               <span className="tag">a confirmação</span>
               <p>
-                A mediana da taxa anual (−0,0042%) também é negativa: mais da metade dos países do mundo de fato perdeu
-                cobertura florestal ao longo das três décadas.
+                A mediana da taxa anual, vista na seção anterior, também é levemente negativa: mais da metade dos países
+                perdeu cobertura florestal ao longo das três décadas, ainda que muitos por muito pouco.
               </p>
             </AnimatedContent>
           </div>
